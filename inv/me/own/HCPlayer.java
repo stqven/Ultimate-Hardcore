@@ -1,7 +1,6 @@
 package inv.me.own;
 
 import com.Zrips.CMI.CMI;
-import javafx.util.Pair;
 import org.bukkit.Bukkit;
 import org.bukkit.boss.BarFlag;
 import org.bukkit.boss.BarStyle;

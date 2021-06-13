@@ -7,7 +7,6 @@ import com.sk89q.worldguard.protection.flags.StringFlag;
 import inv.me.own.Commands.FirstAid;
 import inv.me.own.Commands.Thirst;
 import inv.me.own.Commands.UHC;
-import javafx.util.Pair;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
@@ -32,7 +31,9 @@ public class Main extends JavaPlugin implements Listener {
 
     public void onEnable() {
         registerEvents(new Events());
-        registerCommands(new Pair<>("firstaid", new FirstAid()), new Pair<>("thirst", new Thirst()), new Pair<>("uhc", new UHC()));
+        getCommand("firstaid").setExecutor(new FirstAid());
+        getCommand("thirst").setExecutor(new Thirst());
+        getCommand("uhc").setExecutor(new UHC());
         addRecipes(Config.getBrokenLegRecipe(), Config.getBandageRecipe(), Config.getHelmetRecipe(), Config.getChestplateRecipe(),
                 Config.getLeggingsRecipe(), Config.getBootsRecipe());
         pm = ProtocolLibrary.getProtocolManager();
@@ -46,8 +47,8 @@ public class Main extends JavaPlugin implements Listener {
             public void run() {
                 for (HCPlayer hcp : HCPlayer.getPlayers()) {
                     Player all = hcp.getPlayer();
-                    if (all.isDead()) return;
                     if (all == null) continue;
+                    if (all.isDead()) return;
                     if (hcp.isGM()) {
                         hcp.setBreakLeg(false);
                         hcp.setBleeding(false);
@@ -123,12 +124,6 @@ public class Main extends JavaPlugin implements Listener {
     public void registerEvents(Listener... listeners) {
         for (Listener listener : listeners) {
             Bukkit.getServer().getPluginManager().registerEvents(listener, this);
-        }
-    }
-
-    public void registerCommands(Pair<String, CommandExecutor>... cmds) {
-        for (Pair<String, CommandExecutor> cmd : cmds) {
-            getCommand(cmd.getKey()).setExecutor(cmd.getValue());
         }
     }
 
