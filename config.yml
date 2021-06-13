@@ -1,0 +1,110 @@
+# Sources:
+# Block/Food Types: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html
+# Biome Types: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/block/Biome.html
+# Potion Types: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/potion/PotionEffectType.html
+# BossBar Colors: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/boss/BarColor.html
+
+# WorldGuard Regions:
+# - Name: thirst-draining, Default: Deny, Description: Will stop players' thirst from draining
+# - Name: temperature-increase, Default: Allow, Description: Increasing players' temperature no matters what biome they are in
+# - Name: temperature-decrease, Default: Allow, Description: Decreasing players' temperature no matters what biome they are in
+
+Time: # Must be between 0 - 24000
+  night-start: 13000
+  night-end: 24000
+Heat:
+  increase-time: 3 # Time in seconds
+  decrease-time: 2
+  low-temperature-reduce: 1 # Every 1 second upper than 32 temperature the player will take 1 damage
+  biomes: # Set True if you want ICE AROMR to have effect in this biome
+    - "DESERT false"
+    - "SAVANNA true"
+  worlds:
+    - "world_nether true"
+  sources:
+    - "FURNACE"
+    - "BLAST_FURNACE"
+    - "SMOKER"
+    - "TORCH"
+    - "CAMPFIRE"
+    - "FIRE"
+Cold:
+  increase-time: 3 # Time in seconds
+  decrease-time: 2
+  biomes:
+    - "OCEAN"
+  worlds:
+    - "world_the_end"
+  sources:
+    - "SOUL_TORCH"
+    - "SOUL_CAMPFIRE"
+Thirst:
+  bleeding-reduce: 0.3 # Your thirst will be reduced by 0.3 every 1 second
+  night-reduce: 1 # Every 1 second in night the player's thirst will be reduced by 1
+  low-thirst-damage: 1 # Every 1 second under 10% thirst the player will take 1 damage
+  activities-reduce:
+    building: 4 0.3 # Every 4 blocks the player player he will get -0.3 thirst
+    mining: 5 0.9 # Every 5 blocks of mining the player will get -0.5 thirst
+    sprinting: 1 0.3 # Every 1 second of sprinting the player will get -0.3 thirst
+    combat: 1 0.1 # Every 1 hit to another player/entity the player will get -0.1 thirst
+  food: # Food Type - Thirst addition (negative value to removal)
+    - "POTION 50"
+    - "MELON_SLICE 10"
+    - "APPLE 5"
+    - "BREAD -10"
+Injury:
+  broken-legs:
+    damage: 0.5 # Removes 0.5 heart per second
+    potions: # POTION_NAME POTION_POWER
+      - "SLOW 1"
+    chances: # Max value is 20
+      '9':
+        chance: '50%'
+      '10':
+        chance: '100%'
+  bleeding:
+    damage: 1 # The damage you will get every 1 second
+    time: -1 # Bleeding will stop after X seconds (Set -1 to infinite)
+    potions: # POTION_NAME POTION_POWER
+      - "SLOW 1"
+    chances: # You can use ITEM_{ITEM_NAME} / MOB_{MOB_NAME} / BLOCK_{BLOCK_NAME} / PROJECTILE_{PROJECTILE_NAME}
+      'ITEM_DIAMOND_SWORD': '100%'
+      'ITEM_IRON_SWORD': '50%'
+      'MOB_ZOMBIE': '50%'
+      'BLOCK_CACTUS': '50%'
+      'PROJECTILE_ARROW': '50%'
+Recipes: # Names of recipes' items
+  broken-leg: "&cBroken Leg Splint &7(Right Click)"
+  bandage: "&cBandage &7(Right Click)"
+  helmet: "&bIce Helmet"
+  chestplate: "&bIce Chestplate"
+  leggings: "&bIce Leggings"
+  boots: "&bIce Boots"
+BossBar: # BossBar configuration
+  Thirst:
+    Title: "§9§lThirst: %value%%"
+    Color: "BLUE"
+  Temperature:
+    Title: "§c§lTemperature: %value%°"
+    Color: "RED"
+Messages:
+  not-in-ocean: '§cYou can refill this only in the oceans!'
+  bossbar-thirst: "§9§lThirst: %value%%"
+  bossbar-temperature: "§c§lThirst: %value%%"
+  actionbar-brokenleg: '&cYour leg is broken'
+  actionbar-bleeding: '&cYou are bleeding'
+  actionbar-both: '&cYour leg is broken &cYou are bleeding'
+  thirst-title: '&9You are thirsty!'
+  thirst-subtitle: '&bYou need to find water...'
+  cold-title: '&9You are freezing!'
+  cold-subtitle: '&bYou need to find warmth...'
+  heat-title: '&4You are overheating!'
+  heat-subtitle: '&bYou need to cool off...'
+  death-messages:
+    bleeding: '§c%player% §ehas died for bleeding!'
+    broken-leg: '§c%player% §ehas died for broken leg!'
+    bleeding-and-broken-leg: '§c%player% §ehas died for bleeding and broken leg!'
+    low-temperature: '§c%player% §ehas died for low temperature!'
+    high-temperature: '§c%player% §ehas died for high temperature!'
+    low-thirst: '§c%player% §ehas died for low thirst!'
+    lava: '§c%player% §ehas died because of lava!'

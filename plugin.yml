@@ -1,0 +1,10 @@
+name: Hardcore
+main: inv.me.own.Main
+version: 1.0
+author: stqv
+api-version: 1.16
+depend: [ProtocolLib, WorldEdit, WorldGuard]
+commands:
+  uhc:
+  thirst:
+  firstaid:
